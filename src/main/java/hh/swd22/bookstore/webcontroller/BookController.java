@@ -26,14 +26,9 @@ public class BookController {
 	@Autowired
 	BookRepository bookRepository; 
 	
-	public BookController() {
-		
-		this.books = new ArrayList<Book>();
-		this.books.add(new Book("harry potter, viisastenkivi", "J.K Rowling", "2000", "0000000001", 25, null));
-		this.books.add(new Book("harry potter, salaisuuksien kammio", "J.K Rowling", "2000", "0000000002", 25, null));
-	}
 	
-	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 	public String getBooks(Model model) {
 			List<Book> books =  (List<Book>) bookRepository.findAll();
 			model.addAttribute("books", books);
@@ -47,7 +42,7 @@ public class BookController {
 		return "bookform";
 	}
 
-
+		// Kirjan Talletus tietokantaan
 	@RequestMapping(value = "/newbook", method = RequestMethod.POST)
 	public String saveBook(@ModelAttribute Book book) {
 
