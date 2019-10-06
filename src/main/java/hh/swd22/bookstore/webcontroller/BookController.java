@@ -2,6 +2,7 @@ package hh.swd22.bookstore.webcontroller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.Entity;
 
@@ -41,6 +43,11 @@ public class BookController {
 		model.addAttribute("book", new Book(null, null, null, null, 0, null));
 		return "bookform";
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String Login() {
+		return "login";
+	}
 
 		// Kirjan Talletus tietokantaan
 	@RequestMapping(value = "/newbook", method = RequestMethod.POST)
@@ -55,4 +62,13 @@ public class BookController {
 		bookRepository.deleteById(bookId);
 		return "redirect:../booklist";
 	}
+	
+	@RequestMapping(value="/booksJson/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest() {
+	return (List<Book>) bookRepository.findAll();
+	}
+	
+	
+	
+	
 }
